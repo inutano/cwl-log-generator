@@ -8,5 +8,7 @@ $LOAD_PATH << File.join(__dir__, "lib")
 require 'lib/cwllog'
 
 if __FILE__ == $0
+  CWLlog::CWL::DebugInfo.load(ARGV[0]) # --debug output with timestamps
+  CWLlog::CWL::JobConf.load(ARGV[1]) # job conf yaml or json
   puts CWLlog.generate
 end

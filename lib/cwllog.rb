@@ -6,7 +6,14 @@ require 'cwllog/cwl'
 module CWLlog
   class << self
     def generate
-      JSON.dump(CWLlog::Env.generate)
+      JSON.dump(merge_info)
+    end
+
+    def merge_info
+      {
+        env: CWLlog::Env.generate,
+        cwl: CWLlog::CWL.generate,
+      }
     end
   end
 end
