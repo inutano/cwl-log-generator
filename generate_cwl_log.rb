@@ -11,5 +11,8 @@ if __FILE__ == $0
   CWLlog::CWL::DebugInfo.load(ARGV[0]) # --debug output with timestamps
   CWLlog::CWL::JobConf.load(ARGV[1]) # job conf yaml or json
   CWLlog::CWL::DebugInfo.cidfile_dir(ARGV[2]) # --debug output with timestamps
+  CWLlog::Docker.load_docker_ps(ARGV[3])
+  CWLlog::Docker.load_docker_info(ARGV[4])
+
   puts CWLlog.generate
 end

@@ -13,6 +13,7 @@ module CWLlog
       {
         env: CWLlog::Env.generate,
         cwl: CWLlog::CWL.generate,
+        docker: CWLlog::Docker.generate,
       }
     end
   end
