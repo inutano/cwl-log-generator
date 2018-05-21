@@ -59,7 +59,7 @@ module CWLlog
           steps.each do |step|
             step_info[step] = {
               stepname: step,
-              # cwlfile: ,
+              cwlfile: get_tool_cwl_file_path(step),
               # container_id: ,
               # container_name: ,
               # container_cmd: ,
@@ -71,6 +71,10 @@ module CWLlog
             }
           end
           step_info
+        end
+
+        def get_tool_cwl_file_path(step_name)
+          @@events.select{|str| str =~ /\[job #{step_name}\] initializing from/ }.first.split("\s")[6]
         end
 
         def input_object(step_name)
