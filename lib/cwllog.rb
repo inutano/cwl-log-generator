@@ -1,13 +1,13 @@
+require 'json'
 require 'cwllog/env'
 require 'cwllog/env/aws'
 require 'cwllog/docker'
 require 'cwllog/cwl'
 
 module CWLlog
-  module CWLlogGenerate
+  class << self
     def generate
-      # do something
+      JSON.dump(CWLlog::Env.generate)
     end
   end
-  extend CWLlogGenerate
 end

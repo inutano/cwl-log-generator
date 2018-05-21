@@ -3,9 +3,10 @@
 #
 
 $LOAD_PATH << __dir__
+$LOAD_PATH << File.join(__dir__, "lib")
 
 require 'lib/cwllog'
 
 if __FILE__ == $0
-  CWLlog.generate
+  puts CWLlog.generate
 end
