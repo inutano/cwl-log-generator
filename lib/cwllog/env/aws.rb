@@ -3,6 +3,18 @@ require 'open-uri'
 module CWLlog
   class Env
     class AWS
+      def generate
+        if is_aws?
+          {
+            ami_id: get_ami_id,
+            instance_type: get_instance_type,
+            region: get_region,
+          }
+        else
+          {}
+        end
+      end
+
       def metadata_endpoint_base
         "http://169.254.169.254/latest/meta-data/"
       end
