@@ -57,9 +57,6 @@ module CWLlog
         def generate_step_info
           step_info = {}
           steps.each do |step|
-            inout = @@events.select{|str| str =~ /\[job #{step}\] \{\n/m }.sort_by{|str| DateTime.parse(str) }
-            input_obj = JSON.load("{" + inout.first.sub(/^.*\{/,""))
-            output_obj = JSON.load("{" + inout.last.sub(/^.*\{/,""))
             step_info[step] = {
               stepname: step,
               # cwlfile: ,
@@ -69,11 +66,37 @@ module CWLlog
               # container_status: ,
               # tool_version: ,
               # tool_status: ,
-              input_files: input_obj,
-              output_files: output_obj,
+              input_files: input_object(step),
+              output_files: output_object(step),
             }
           end
           step_info
+        end
+
+        def input_object(step_name)
+          load_object(select_io_object(step_name, :input))
+        end
+
+        def output_object(step_name)
+          load_object(select_io_object(step_name, :output))
+        end
+
+        def load_object(object_str)
+          JSON.load("{" + object_str.sub(/^.*\{/,""))
+        end
+
+        def select_io_object(step_name, in_or_out)
+          method = case in_or_out
+                   when :input
+                     :first
+                   when :output
+                     :last
+                   end
+          io_object_lines(step_name).send(method)
+        end
+
+        def io_object_lines(step_name)
+          @@events.select{|str| str =~ /\[job #{step_name}\] \{\n/m }
         end
 
         def steps
