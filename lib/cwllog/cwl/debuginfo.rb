@@ -10,6 +10,10 @@ module CWLlog
           @@timestamps = get_timestamps
         end
 
+        def cidfile_dir(cid_dir)
+          @@cid_dir = cid_dir
+        end
+
         #
         # Methods for class variables
         #
@@ -60,17 +64,26 @@ module CWLlog
             step_info[step] = {
               stepname: step,
               cwlfile: get_tool_cwl_file_path(step),
-              # container_id: ,
-              # container_name: ,
-              # container_cmd: ,
-              # container_status: ,
-              # tool_version: ,
+              container_id: get_container_id(step),
               tool_status: get_tool_status(step),
               input_files: input_object(step),
               output_files: output_object(step),
             }
           end
           step_info
+        end
+
+        def get_container_id(step_name)
+          cid_path = File.join(@@cid_dir, get_cid_file_name(step_name))
+          if File.exist?(cid_path)
+            open(cid_path).read
+          end
+        end
+
+        def get_cid_file_name(step_name)
+          ev = @@events.select{|str| str =~ /job #{step_name}.*--cidfile/m }.first
+          line = ev.split("\n").select{|line| line =~ /--cidfile/ }.first
+          File.basename(line.split("=").last.delete("\s\\"))
         end
 
         def get_tool_status(step_name)
