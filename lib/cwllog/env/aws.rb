@@ -22,10 +22,6 @@ module CWLlog
       def get_region
         get_aws_metadata("availability-zone")
       end
-
-      def get_hostname
-        get_aws_metadata("hostname")
-      end
     end
   end
 end
