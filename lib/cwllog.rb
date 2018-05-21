@@ -1,6 +1,5 @@
 require 'json'
 require 'cwllog/env'
-require 'cwllog/env/aws'
 require 'cwllog/docker'
 require 'cwllog/cwl'
 

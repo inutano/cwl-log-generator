@@ -1,3 +1,5 @@
+require 'cwllog/env/aws'
+
 module CWLlog
   class Env
     class << self
