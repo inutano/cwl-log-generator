@@ -65,12 +65,20 @@ module CWLlog
               # container_cmd: ,
               # container_status: ,
               # tool_version: ,
-              # tool_status: ,
+              tool_status: get_tool_status(step),
               input_files: input_object(step),
               output_files: output_object(step),
             }
           end
           step_info
+        end
+
+        def get_tool_status(step_name)
+          if @@events.select{|str| str =~ /\[job #{step_name}\] completed success/ }.first
+            "success"
+          else
+            "failed"
+          end
         end
 
         def get_tool_cwl_file_path(step_name)
