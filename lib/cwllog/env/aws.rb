@@ -6,9 +6,9 @@ module CWLlog
       def generate
         if is_aws?
           {
-            ami_id: get_ami_id,
-            instance_type: get_instance_type,
-            region: get_region,
+            ec2_ami_id: get_ami_id,
+            ec2_instance_type: get_instance_type,
+            ec2_region: get_region,
           }
         else
           {}
