@@ -22,6 +22,10 @@ module CWLlog
       def get_region
         get_aws_metadata("availability-zone")
       end
+
+      def get_ami_id
+        get_aws_metadata("ami-id")
+      end
     end
   end
 end
