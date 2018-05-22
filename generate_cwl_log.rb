@@ -10,7 +10,7 @@ require 'lib/cwllog'
 
 if __FILE__ == $0
   opts = GetoptLong.new(
-    ['--debug-output', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--debug-output', GetoptLong::REQUIRED_ARGUMENT],
     ['--job-conf', GetoptLong::REQUIRED_ARGUMENT],
     ['--cidfile-dir', GetoptLong::REQUIRED_ARGUMENT],
     ['--docker-ps', GetoptLong::OPTIONAL_ARGUMENT],
