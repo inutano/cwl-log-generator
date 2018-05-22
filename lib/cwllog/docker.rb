@@ -46,7 +46,7 @@ module CWLlog
         info_raw = {}
         @@info.split("\n").each do |line|
           l = line.split(": ")
-          info_raw[l[0].delete("\s")] = l[1]
+          info_raw[l[0].sub(/^\s+/,"")] = l[1]
         end
         {
           running_containers: info_raw["Running"],
