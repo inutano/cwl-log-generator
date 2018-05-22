@@ -1,6 +1,9 @@
 module CWLlog
   class Docker
     class << self
+      @@ps = ''
+      @@info = ''
+
       def load_docker_ps(ps)
         @@ps = if File.exist?(ps)
           open(ps).read
@@ -25,7 +28,7 @@ module CWLlog
       end
 
       def parse_docker_ps
-        return nil if !@@ps
+        return nil if @@ps.empty?
         ps = {}
         @@ps.split("\n").each do |line|
           line_a = line.split(/\s\s+/)
@@ -39,7 +42,7 @@ module CWLlog
       end
 
       def parse_docker_info
-        return nil if !@@info
+        return nil if @@info.empty?
         info_raw = {}
         @@info.split("\n").each do |line|
           l = line.split(": ")
