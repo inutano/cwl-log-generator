@@ -1,65 +1,15 @@
-# docker-cwllog-generator
-This program collects the cwl workflow (https://github.com/pitagora-galaxy/cwl) execution metrics from the workflow stderr, and saves the metrics to the JSON log file.
+# CWL Log Generator
 
-Dockerhub site: https://hub.docker.com/r/yyabuki/docker-cwllog-generator/
+CWL Log Generator is one component of the [CWL-metrics](https://github.com/inutano/cwl-metrics) system for resource usage metrics collection of [Common Workflow Language (CWL)](https://www.commonwl.org) runs. CWL Log Generator generate JSON format log file by analyzing outputs from `[cwltool](https://github.com/common-workflow-language/cwltool/)` including debug output, docker container status, and platform information.
 
+## Usage
 
-#Prerequisite:
-  1) The cwl workflow should be executed with following four arguments:
+A ruby script `generate_cwl_log` is for stand alone execution, but the generator is designed to work as a part of the CWL-metrics system. So we recommend to install CWL-metrics and use `cwl-metrics` to launch the automatic log generation process.
 
-    --debug
-    --leave-container
-    --compute-checksum
-    --timestamps 
+For stand alone use, the script requires following information:
 
-    e.g.
-    % cwltool --debug --leave-container --compute-checksum --timestamps hisat2-se.cwl hisat2-se.yaml 2> stderr.log
-
-  2) And following two files are needed.
-
-    % docker info > docker_info
-    % docker ps -a --no-trunc > docker_ps
-
-#command:
-
-    % docker run --rm \
-        -v /path/to/result_dir:/cwl/result \
-        -v /path/to/cwl_log_dir:/cwl/log \
-        -v /path/to/docker_info_dir:/cwl/docker_info \
-        -v /path/to/docker_ps_dir:/cwl/docker_ps \
-        -v /path/to/input_dir:/cwl/input \
-        yyabuki/docker-cwllog-generator cwl_log_generator.py \
-        --docker_ps /cwl/docker_ps/'docker ps file' \
-        --docker_info /cwl/docker_info/'docker info file' \
-        --cwl_log /cwl/log/'cwl log file' \
-        --cwl_input /cwl/input/'******.yaml'
-
-    e.g.
-    % docker run --rm \
-        -v /work/hisat2/result:/cwl/result \
-        -v /work/hisat2/cwl_log_dir:/cwl/log \
-        -v /work/hisat2/src/input_dir:/cwl/input \
-        yyabuki/docker-cwllog-generator cwl_log_generator.py \
-        --docker_ps /cwl/log/docker_ps.txt \
-        --docker_info /cwl/log/docker_info.txt \
-        --cwl_log /cwl/log/cwl_stderr.log \
-        --cwl_input /cwl/input/hisat2-se.yaml
-
-    * /cwl/result volume must be specified.
-
-=How to mount volumes=
-
-    -v /path/to/result_dir:/cwl/result (required)
-        /path/to/result_dir -- the directory path in which the cwl execution results are stored.
-
-    -v /path/to/cwl_log_dir:/cwl/log
-        /path/to/cwl_log_dir -- the directory path for storing the log file in which the cwl execution stderr is written.
-
-    -v /path/to/input_dir:/cwl/input
-        /path/to/yaml_dir -- the directory path for storing the yaml file required for executing the cwl.
-
-    -v /path/to/docker_ps_dir:/cwl/docker_ps
-        /path/to/docker_ps_dir -- the directory path for storing the file in which the docker ps results are written.
-
-    -v /path/to/docker_info_dir:/cwl/docker_info
-        /path/to/docker_info_dir -- the directory path for storing the file in which the docker info results are written.
+- a path to the file containing debug output via `cwltool --debug`
+- a path to the directory containing cid files created by `cwltool --record-container-id`
+- a path to the job configuration file in yaml or json (optional)
+- output of `docker ps` as output or file (optional)
+- output of `docker info` as output or file (optional)
