@@ -28,10 +28,10 @@ module CWLlog
         ps = {}
         @@ps.split("\n").each do |line|
           line_a = line.split(/\s\s+/)
-          ps_info[line_a[0]] = {
+          ps[line_a[0]] = {
             docker_image: line_a[1],
-            docker_cmd: line_a[2].delete("\"")
-            docker_status: line_a[4]
+            docker_cmd: line_a[2].delete("\""),
+            docker_status: line_a[4],
           }
         end
         ps
