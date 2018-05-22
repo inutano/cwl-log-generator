@@ -39,14 +39,14 @@ module CWLlog
 
     def concat_steps_with_docker_ps
       steps = {}
-      @@logs[:cwl][:debug_info][:steps].each_pair do |k,v|
-        step_name = k
-        cid = v[:container_id]
-        if cid
-          dps = @@logs[:docker][:ps][cid]
-          steps[step_name] = v.merge(dps)
+      @@logs[:cwl][:debug_info][:steps].each_pair do |step_name,step_info|
+        cid = step_info[:container_id]
+        ps  = @@logs[:docker][:ps]
+        if cid && ps
+          dps = ps[cid]
+          steps[step_name] = step_info.merge(dps)
         else
-          steps[step_name] = v
+          steps[step_name] = step_info
         end
       end
       steps
