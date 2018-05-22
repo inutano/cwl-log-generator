@@ -25,6 +25,7 @@ module CWLlog
       end
 
       def parse_docker_ps
+        return nil if !@@ps
         ps = {}
         @@ps.split("\n").each do |line|
           line_a = line.split(/\s\s+/)
@@ -38,6 +39,7 @@ module CWLlog
       end
 
       def parse_docker_info
+        return nil if !@@info
         info_raw = {}
         @@info.split("\n").each do |line|
           l = line.split(": ")
