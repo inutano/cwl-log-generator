@@ -1,4 +1,4 @@
-#
+#!/bin/env ruby
 # generate_cwl_log.rb: assemble log data of a CWL workflow run
 #
 
