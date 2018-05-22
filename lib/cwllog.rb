@@ -6,15 +6,50 @@ require 'cwllog/cwl'
 module CWLlog
   class << self
     def generate
-      JSON.dump(merge_info)
+      JSON.dump(cwl_log)
     end
 
-    def merge_info
+    def parse_logs
+      @@logs = logs
+    end
+
+    def logs
       {
         env: CWLlog::Env.generate,
         cwl: CWLlog::CWL.generate,
         docker: CWLlog::Docker.generate,
       }
+    end
+
+    def cwl_log
+      parse_logs
+      {
+        workflow: {
+          platform: @@logs[:env],
+          docker: @@logs[:docker][:info],
+          start_date: @@logs[:cwl][:debug_info][:workflow][:start_date],
+          end_date: @@logs[:cwl][:debug_info][:workflow][:end_date],
+          cwl_file: @@logs[:cwl][:debug_info][:workflow][:cwlfile],
+          genome_version: @@logs[:cwl][:debug_info][:workflow][:genome_version],
+          input_jobfile: logs[:cwl][:input_jobfile],
+        },
+        steps: concat_steps_with_docker_ps,
+      }
+    end
+
+    def concat_steps_with_docker_ps
+      steps = {}
+      @@logs[:cwl][:debug_info][:steps].each_pair do |k,v|
+        step_name = k
+        cid = v[:container_id]
+        if cid
+          dps = @@logs[:docker][:ps][cid]
+          steps[step_name] = v.merge(dps)
+        else
+          steps[step_name] = v
+        end
+      end
+      steps
     end
   end
 end
