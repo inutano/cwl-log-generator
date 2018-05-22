@@ -1,5 +1,5 @@
 #! /usr/bin/env ruby
-# generate_cwl_log.rb: assemble log data of a CWL workflow run
+# generate_cwl_log: assemble cwltool log data with container environment information
 #
 
 $LOAD_PATH << __dir__
@@ -15,6 +15,8 @@ if __FILE__ == $0
     ['--job-conf', GetoptLong::OPTIONAL_ARGUMENT],
     ['--docker-ps', GetoptLong::OPTIONAL_ARGUMENT],
     ['--docker-info', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--output-dir', '-o', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--stdout', GetoptLong::NO_ARGUMENT],
   )
 
   opts.each do |opt, arg|
@@ -29,8 +31,17 @@ if __FILE__ == $0
       CWLlog::Docker.load_docker_ps(arg)
     when '--docker-info'
       CWLlog::Docker.load_docker_info(arg)
+    when '--output-dir'
+      output_dir = arg
     end
   end
 
-  puts CWLlog.generate
+  cwl_log_json = CWLlog.generate
+
+  if defined?(output_dir) && File.directory?(output_dir)
+    out_file = File.join(output_dir, "cwl_log.json")
+    open(out_file, 'w'){|f| f.puts(cwl_log_json)}
+  else
+    puts cwl_log_json
+  end
 end
