@@ -4,6 +4,8 @@ module CWLlog
   class CWL
     class JobConf
       class << self
+        @@job_conf = nil
+
         def load(conf_path)
           @@job_conf = JSON.load(open(conf_path).read)
         rescue JSON::ParserError
