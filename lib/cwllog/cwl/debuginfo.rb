@@ -26,7 +26,7 @@ module CWLlog
         end
 
         def parse_date_prefix(line)
-          DateTime.parse(line)
+          DateTime.parse(line).strftime("%Y-%m-%d %H:%M:%S")
         rescue ArgumentError
           nil
         end
