@@ -26,7 +26,7 @@ module CWLlog
         end
 
         def parse_date_prefix(line)
-          DateTime.parse(line).strftime("%Y-%m-%d %H:%M:%S")
+          DateTime.parse(line)
         rescue ArgumentError
           nil
         end
@@ -38,8 +38,8 @@ module CWLlog
         def generate
           {
             workflow: {
-              start_date: @@timestamps.first.to_s,
-              end_date: @@timestamps.last.to_s,
+              start_date: @@timestamps.first.strftime("%Y-%m-%d %H:%M:%S"),
+              end_date: @@timestamps.last.strftime("%Y-%m-%d %H:%M:%S"),
               cwlfile: get_cwlfile_name,
               genome_version: get_genome_version,
             },
