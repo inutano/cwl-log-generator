@@ -26,7 +26,7 @@ module CWLlog
         end
 
         def parse_date_prefix(line)
-          DateTime.parse(line)
+          DateTime.parse(line.split("]").first)
         rescue ArgumentError
           nil
         end
