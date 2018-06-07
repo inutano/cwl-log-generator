@@ -1,3 +1,5 @@
+require 'json'
+
 module CWLlog
   class Docker
     class << self
@@ -32,13 +34,24 @@ module CWLlog
         ps = {}
         @@ps.split("\n").each do |line|
           line_a = line.split(/\s\s+/)
-          ps[line_a[0]] = {
+          cid = line_a[0]
+          ps[cid] = {
             docker_image: line_a[1],
             docker_cmd: line_a[2].delete("\""),
             docker_status: line_a[4],
+            docker_inspect: parse_docker_inspect(cid),
           }
         end
         ps
+      end
+
+      def parse_docker_inspect(cid)
+        data = JSON.load(`docker inspect #{cid}`).first
+        {
+          start_time: data["State"]["StartedAt"],
+          end_time: data["State"]["FinishedAt"],
+          exit_code: data["State"]["ExitCode"],
+        }
       end
 
       def parse_docker_info

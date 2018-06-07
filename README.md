@@ -13,3 +13,5 @@ For stand alone use, the script requires following information:
 - a path to the job configuration file in yaml or json (optional)
 - output of `docker ps` as output or file (optional)
 - output of `docker info` as output or file (optional)
+- `docker inspect` command
+  - if the provided docker container is used, mount `docker.sock` by `-v /var/run/docker.sock:/var/run/docker.sock` to enable `docker inspect` inside the container
