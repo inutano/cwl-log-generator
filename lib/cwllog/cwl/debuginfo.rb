@@ -48,7 +48,8 @@ module CWLlog
         end
 
         def get_cwlfile_name
-          @@events.select{|str| str =~ /\s\[workflow\s/ }.first.split("\s")[3].sub(/\]$/,"")
+          ev = @@events.select{|str| str =~ /Resolved/ }
+          File.basename(ev.first.split("\s").last.delete("'"))
         end
 
         def get_genome_version
