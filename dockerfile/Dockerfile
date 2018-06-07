@@ -1,6 +1,6 @@
 FROM ruby:2.5.1-stretch
 
-RUN apt-get update -y && sudo apt-get install -y \
+RUN apt-get update -y && apt-get install -y \
       apt-transport-https \
       ca-certificates \
       curl \
