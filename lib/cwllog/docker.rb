@@ -7,19 +7,17 @@ module CWLlog
       @@info = ''
 
       def load_docker_ps(ps)
-        @@ps = if File.exist?(ps)
-          open(ps).read
-        else
-          ps
-        end
+        @@ps = open(ps).read
+      rescue Errno::ENOENT
+        STDERR.puts "docker ps file not found"
+        exit 1
       end
 
       def load_docker_info(info)
-        @@info = if File.exist?(info)
-          open(info).read
-        else
-          info
-        end
+        @@info = open(info).read
+      rescue Errno::ENOENT
+        STDERR.puts "docker info file not found"
+        exit 1
       end
 
       def generate
