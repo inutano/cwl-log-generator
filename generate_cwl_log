@@ -37,7 +37,14 @@ if __FILE__ == $0
     end
   end
 
-  cwl_log_json = CWLlog.generate
+  begin
+    cwl_log_json = CWLlog.generate
+  rescue => e
+    error_out_dir = output_dir || "."
+    error_out_file = "#{output_dir}/cwl_log_generator.error.log"
+    open(error_out_file, 'w'){|f| f.puts(e.inspect); f.puts(e.backtrace) }
+    exit 1
+  end
 
   if File.directory?(output_dir)
     out_file = File.join(output_dir, "cwl_log.json")
