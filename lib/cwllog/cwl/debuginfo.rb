@@ -96,7 +96,10 @@ module CWLlog
         end
 
         def get_tool_cwl_file_path(step_name)
-          @@events.select{|str| str =~ /\[job #{step_name}\] initializing from/ }.first.split("\s").last
+          line_init = @@events.select{|str| str =~ /\[job #{step_name}\] initializing from/ }.first
+          if line_init
+            line_init.split("\s").select{|item| item =~ /.cwl$/ }.first
+          end
         end
 
         def input_object(step_name)
