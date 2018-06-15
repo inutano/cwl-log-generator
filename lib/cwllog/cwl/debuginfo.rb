@@ -126,7 +126,7 @@ module CWLlog
         end
 
         def steps
-          @@events.select{|str| str =~ /\] \[job / }.map{|str| str.split("\s")[3].delete("]") }.uniq
+          @@events.select{|str| str =~ /\] \[job / }.map{|str| str.split("\s")[3].delete("]") }.uniq.reject{|name| name == "step" }
         end
       end
     end
