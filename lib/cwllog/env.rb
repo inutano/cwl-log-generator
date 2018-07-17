@@ -28,11 +28,18 @@ module CWLlog
       end
 
       def get_total_memory
-        get_system_info("grep ^MemTotal /proc/meminfo | awk '{ print $2 }'")
+        case RUBY_PLATFORM
+        when /linux/
+          get_system_info("grep ^MemTotal /proc/meminfo | awk '{ print $2 }'")
+        when /darwin/
+          get_system_info("sysctl hw.memsize | awk '{ print $2 }'")
+        else
+          # unsupported
+        end
       end
 
       def get_disk_size
-        get_system_info("df -k --output=size / | awk 'NR==2 { print $1 }'")
+        get_system_info("df -k / | awk 'NR==2 { print $2 }'")
       end
     end
   end
