@@ -21,13 +21,18 @@ module CWLlog
         end
 
         def get_aws_metadata(category)
-          open(metadata_endpoint_base+category).read
+          open(metadata_endpoint_base+category, { :open_timeout => 2 }).read
         rescue OpenURI::HTTPError
+          nil
+        rescue Net::OpenTimeout
+          nil
+        rescue Errno::EHOSTUNREACH
           nil
         end
 
         def is_aws?
-          true if get_aws_metadata("").include?("ami-id")
+          data = get_aws_metadata("")
+          not data.nil? and data.include?("ami-id")
         rescue Errno::ECONNREFUSED
           false
         end
