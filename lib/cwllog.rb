@@ -25,7 +25,6 @@ module CWLlog
       parse_logs
       {
         workflow: {
-          platform: @@logs[:env],
           docker: @@logs[:docker][:info],
           start_date: @@logs[:cwl][:debug_info][:workflow][:start_date],
           end_date: @@logs[:cwl][:debug_info][:workflow][:end_date],
@@ -48,6 +47,7 @@ module CWLlog
         else
           steps[step_name] = step_info
         end
+        steps[step_name][:platform] = @@logs[:env]
       end
       steps
     end
