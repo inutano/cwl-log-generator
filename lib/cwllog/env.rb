@@ -1,3 +1,4 @@
+require 'etc'
 require 'cwllog/env/aws'
 
 module CWLlog
@@ -14,6 +15,7 @@ module CWLlog
       def env
         {
           hostname: get_hostname,
+          ncpu_cores: get_ncpu_cores,
           total_memory: get_total_memory,
           disk_size: get_disk_size,
         }
@@ -25,6 +27,10 @@ module CWLlog
 
       def get_hostname
         get_system_info("hostname")
+      end
+
+      def get_ncpu_cores
+        Etc.nprocessors
       end
 
       def get_total_memory
