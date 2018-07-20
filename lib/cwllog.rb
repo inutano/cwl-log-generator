@@ -27,7 +27,7 @@ module CWLlog
         workflow: {
           start_date: @@logs[:cwl][:debug_info][:workflow][:start_date],
           end_date: @@logs[:cwl][:debug_info][:workflow][:end_date],
-          cwl_file: @@logs[:cwl][:debug_info][:workflow][:cwlfile],
+          cwl_file: @@logs[:cwl][:debug_info][:workflow][:cwl_file],
           genome_version: @@logs[:cwl][:debug_info][:workflow][:genome_version],
           input_jobfile: logs[:cwl][:input_jobfile],
         },
