@@ -40,7 +40,7 @@ module CWLlog
             workflow: {
               start_date: @@timestamps.first.strftime("%Y-%m-%d %H:%M:%S"),
               end_date: @@timestamps.last.strftime("%Y-%m-%d %H:%M:%S"),
-              cwlfile: get_cwlfile_name,
+              cwl_file: get_cwlfile_name,
               genome_version: get_genome_version,
             },
             steps: generate_step_info,
@@ -64,7 +64,7 @@ module CWLlog
           steps.each do |step|
             step_info[step] = {
               stepname: step,
-              cwlfile: get_tool_cwl_file_path(step),
+              cwl_file: get_tool_cwl_file_path(step),
               container_id: get_container_id(step),
               tool_status: get_tool_status(step),
               input_files: input_object(step),
