@@ -64,6 +64,8 @@ module CWLlog
           steps.each do |step|
             step_info[step] = {
               stepname: step,
+              start_date: get_start_date_for_step(step),
+              end_date: get_end_date_for_step(step),
               cwl_file: get_tool_cwl_file_path(step),
               container_id: get_container_id(step),
               tool_status: get_tool_status(step),
@@ -93,6 +95,16 @@ module CWLlog
           else
             "failed"
           end
+        end
+
+        def get_start_date_for_step(step_name)
+          start_regex = /^.+?\] \[step #{step_name}\] start/
+          parse_date_prefix(@@events.select{|str| str =~ start_regex }.first).strftime("%Y-%m-%d %H:%M:%S")
+        end
+
+        def get_end_date_for_step(step_name)
+          end_regex = /^.+?\] \[step #{step_name}\] completed success/
+          parse_date_prefix(@@events.select{|str| str =~ end_regex }.first).strftime("%Y-%m-%d %H:%M:%S")
         end
 
         def get_tool_cwl_file_path(step_name)
