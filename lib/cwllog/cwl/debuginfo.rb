@@ -10,10 +10,6 @@ module CWLlog
           @@timestamps = get_timestamps
         end
 
-        def cidfile_dir(cid_dir)
-          nil
-        end
-
         #
         # Methods for class variables
         #
