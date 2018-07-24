@@ -11,7 +11,7 @@ module CWLlog
         end
 
         def cidfile_dir(cid_dir)
-          @@cid_dir = cid_dir
+          nil
         end
 
         #
@@ -77,7 +77,7 @@ module CWLlog
         end
 
         def get_container_id(step_name)
-          cid_path = File.join(@@cid_dir, get_cid_file_name(step_name))
+          cid_path = get_cid_file_name(step_name)
           if File.exist?(cid_path)
             open(cid_path).read
           end
@@ -86,7 +86,7 @@ module CWLlog
         def get_cid_file_name(step_name)
           ev = @@events.select{|str| str =~ /job #{step_name}.*--cidfile/m }.first
           line = ev.split("\n").select{|line| line =~ /--cidfile/ }.first
-          File.basename(line.split("=").last.delete("\s\\"))
+          line.split("=").last.delete("\s\\")
         end
 
         def get_tool_status(step_name)

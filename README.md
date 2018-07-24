@@ -25,7 +25,7 @@ $ cwltool --debug --leave-container --timestamps --compute-checksum --record-con
 ...
 $ docker ps -a --no-trunk > ps-file
 $ docker info > info-file
-$ generate_cwl_log --cidfile-dir result --docker-ps ./ps-file --docker-info ./info-file --job-conf inputs.yml --debug-output result/cwltool.log --output-dir result
+$ generate_cwl_log --docker-ps ./ps-file --docker-info ./info-file --job-conf inputs.yml --debug-output result/cwltool.log --output-dir result
 $ cat result/cwl_log.json | jq .
 {
   "workflow": {
