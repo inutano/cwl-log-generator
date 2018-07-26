@@ -9,7 +9,6 @@ A ruby script `generate_cwl_log` is for stand alone execution, but the generator
 For stand alone use, the script requires following information:
 
 - a path to the file containing debug output via `cwltool --debug`
-- a path to the directory containing cid files created by `cwltool --record-container-id`
 - a path to the job configuration file in yaml or json (optional)
 - output of `docker ps` as output or file (optional)
 - output of `docker info` as output or file (optional)
@@ -25,7 +24,7 @@ $ cwltool --debug --leave-container --timestamps --compute-checksum --record-con
 ...
 $ docker ps -a --no-trunk > ps-file
 $ docker info > info-file
-$ generate_cwl_log --cidfile-dir result --docker-ps ./ps-file --docker-info ./info-file --job-conf inputs.yml --debug-output result/cwltool.log --output-dir result
+$ generate_cwl_log --docker-ps ./ps-file --docker-info ./info-file --job-conf inputs.yml --debug-output result/cwltool.log --output-dir result
 $ cat result/cwl_log.json | jq .
 {
   "workflow": {
