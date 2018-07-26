@@ -29,7 +29,7 @@ module CWLlog
           end_date: @@logs[:cwl][:debug_info][:workflow][:end_date],
           cwl_file: @@logs[:cwl][:debug_info][:workflow][:cwl_file],
           genome_version: @@logs[:cwl][:debug_info][:workflow][:genome_version],
-          input_jobfile: logs[:cwl][:input_jobfile],
+          inputs: logs[:cwl][:inputs],
         },
         steps: concat_steps_with_docker_ps,
       }

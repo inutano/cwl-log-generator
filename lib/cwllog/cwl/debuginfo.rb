@@ -69,8 +69,8 @@ module CWLlog
               cwl_file: get_tool_cwl_file_path(step),
               container_id: get_container_id(step),
               tool_status: get_tool_status(step),
-              input_files: input_object(step),
-              output_files: output_object(step),
+              inputs: input_object(step),
+              outputs: output_object(step),
             }
           end
           step_info
