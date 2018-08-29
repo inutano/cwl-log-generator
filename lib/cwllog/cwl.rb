@@ -1,4 +1,3 @@
-require 'cwllog/cwl/jobconf'
 require 'cwllog/cwl/debuginfo'
 
 module CWLlog
@@ -7,7 +6,6 @@ module CWLlog
       def generate
         {
           debug_info: CWLlog::CWL::DebugInfo.generate,
-          inputs: CWLlog::CWL::JobConf.generate,
         }
       end
     end

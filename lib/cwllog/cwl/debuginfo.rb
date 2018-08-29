@@ -38,6 +38,8 @@ module CWLlog
               end_date: @@timestamps.last.strftime("%Y-%m-%d %H:%M:%S"),
               cwl_file: get_cwlfile_name,
               genome_version: get_genome_version,
+              inputs: get_inputs,
+              outputs: get_outputs,
             },
             steps: generate_step_info,
           }
@@ -53,6 +55,14 @@ module CWLlog
           if evnts
             evnts.split("\n").select{|str| str =~ /"genome_version":/ }.first.delete("\s\",").delete("genome_version:")
           end
+        end
+
+        def get_inputs
+          JSON.load(@@events.select{ |str| str =~ /^.+\] \[.+\] \{\n/m }.first.sub(/^.*\{/, "{"))
+        end
+
+        def get_outputs
+          JSON.load(@@events.select{ |str| str =~ /^.+\] \[.+\] \{\n/m }.last.sub(/^.*\{/, "{"))
         end
 
         def generate_step_info
