@@ -1,6 +1,6 @@
 # CWL Log Generator
 
-CWL Log Generator is one component of the [CWL-metrics](https://github.com/inutano/cwl-metrics) system for resource usage metrics collection of [Common Workflow Language (CWL)](https://www.commonwl.org) runs. CWL Log Generator generate JSON format log file by analyzing outputs from `[cwltool](https://github.com/common-workflow-language/cwltool/)` including debug output, docker container status, and platform information.
+CWL Log Generator is one component of the [CWL-metrics](https://github.com/inutano/cwl-metrics) system for resource usage metrics collection of [Common Workflow Language (CWL)](https://www.commonwl.org) runs. CWL Log Generator generate JSON format log file by analyzing outputs from [`cwltool`](https://github.com/common-workflow-language/cwltool/) including debug output, docker container status, and platform information.
 
 ## Usage
 
