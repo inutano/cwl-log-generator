@@ -9,6 +9,7 @@ A ruby script `generate_cwl_log` is for stand alone execution, but the generator
 For stand alone use, the script requires following information:
 
 - a path to the file containing debug output via `cwltool --debug`
+  - `generate_cwl_log` supports outputs via `cwltool` 1.0.20180820141117 or later
 - a path to the job configuration file in yaml or json (optional)
 - output of `docker ps` as output or file (optional)
 - output of `docker info` as output or file (optional)
