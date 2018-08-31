@@ -13,7 +13,7 @@ if __FILE__ == $0
 
   opts = GetoptLong.new(
     ['--debug-output', GetoptLong::REQUIRED_ARGUMENT],
-    ['--job-conf', GetoptLong::OPTIONAL_ARGUMENT],
+    ['--job-conf', GetoptLong::OPTIONAL_ARGUMENT], # for backward compatibility
     ['--docker-ps', GetoptLong::OPTIONAL_ARGUMENT],
     ['--docker-info', GetoptLong::OPTIONAL_ARGUMENT],
     ['--output-dir', '-o', GetoptLong::OPTIONAL_ARGUMENT],
@@ -23,8 +23,6 @@ if __FILE__ == $0
     case opt
     when '--debug-output'
       CWLlog::CWL::DebugInfo.load(arg) # --debug output with timestamps
-    when '--job-conf'
-      CWLlog::CWL::JobConf.load(arg) # job conf yaml or json
     when '--docker-ps'
       CWLlog::Docker.load_docker_ps(arg)
     when '--docker-info'
