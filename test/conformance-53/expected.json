@@ -1,0 +1,134 @@
+{
+  "workflow": {
+    "start_date": null,
+    "end_date": null,
+    "cwl_file": "revsort.cwl",
+    "genome_version": null,
+    "inputs": {
+      "input": {
+        "class": "File",
+        "location": null,
+        "size": 1111,
+        "basename": "whale.txt",
+        "nameroot": "whale",
+        "nameext": ".txt"
+      },
+      "reverse_sort": true
+    },
+    "outputs": {
+      "output": {
+        "location": null,
+        "basename": "output.txt",
+        "nameroot": "output",
+        "nameext": ".txt",
+        "class": "File",
+        "checksum": "sha1$b9214658cc453331b62c2282b772a5c063dbd284",
+        "size": 1111
+      }
+    }
+  },
+  "steps": {
+    "rev": {
+      "stepname": "rev",
+      "start_date": null,
+      "end_date": null,
+      "cwl_file": null,
+      "container_id": null,
+      "tool_status": "success",
+      "inputs": {
+        "input": {
+          "class": "File",
+          "location": null,
+          "size": 1111,
+          "basename": "whale.txt",
+          "nameroot": "whale",
+          "nameext": ".txt"
+        }
+      },
+      "outputs": {
+        "output": {
+          "location": null,
+          "basename": "output.txt",
+          "nameroot": "output",
+          "nameext": ".txt",
+          "class": "File",
+          "checksum": "sha1$97fe1b50b4582cebc7d853796ebd62e3e163aa3f",
+          "size": 1111
+        }
+      },
+      "docker_image": "debian:stretch-slim",
+      "docker_cmd": null,
+      "docker_status": null,
+      "docker_inspect": {
+        "start_time": null,
+        "end_time": null,
+        "exit_code": 0
+      },
+      "docker": {
+        "running_containers": null,
+        "server_version": null,
+        "storage_driver": null,
+        "number_of_cpu": null,
+        "total_memory": null
+      },
+      "platform": {
+        "hostname": null,
+        "ncpu_cores": null,
+        "total_memory": null,
+        "disk_size": null
+      }
+    },
+    "sorted": {
+      "stepname": "sorted",
+      "start_date": null,
+      "end_date": null,
+      "cwl_file": null,
+      "container_id": null,
+      "tool_status": "success",
+      "inputs": {
+        "input": {
+          "location": null,
+          "basename": "output.txt",
+          "nameroot": "output",
+          "nameext": ".txt",
+          "class": "File",
+          "checksum": "sha1$97fe1b50b4582cebc7d853796ebd62e3e163aa3f",
+          "size": 1111
+        },
+        "reverse": true
+      },
+      "outputs": {
+        "output": {
+          "location": null,
+          "basename": "output.txt",
+          "nameroot": "output",
+          "nameext": ".txt",
+          "class": "File",
+          "checksum": "sha1$b9214658cc453331b62c2282b772a5c063dbd284",
+          "size": 1111
+        }
+      },
+      "docker_image": "debian:stretch-slim",
+      "docker_cmd": null,
+      "docker_status": null,
+      "docker_inspect": {
+        "start_time": null,
+        "end_time": null,
+        "exit_code": 0
+      },
+      "docker": {
+        "running_containers": null,
+        "server_version": null,
+        "storage_driver": null,
+        "number_of_cpu": null,
+        "total_memory": null
+      },
+      "platform": {
+        "hostname": null,
+        "ncpu_cores": null,
+        "total_memory": null,
+        "disk_size": null
+      }
+    }
+  }
+}
