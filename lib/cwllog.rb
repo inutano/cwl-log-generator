@@ -3,6 +3,8 @@ require 'cwllog/env'
 require 'cwllog/docker'
 require 'cwllog/cwl'
 
+Version = "0.1.18"
+
 module CWLlog
   class << self
     def generate
@@ -24,6 +26,7 @@ module CWLlog
     def cwl_log
       parse_logs
       {
+        cwl_metrics_version: Version,
         workflow: {
           start_date: @@logs[:cwl][:debug_info][:workflow][:start_date],
           end_date: @@logs[:cwl][:debug_info][:workflow][:end_date],
