@@ -25,9 +25,11 @@ def must_almost_equals(expected, actual)
     end
 
     expected.to_enum.with_index.each do |e, i|
-      must_almost_equals(e, actual[i])
-    rescue ComparisonError => e
-      raise ComparisonError, "Different value of #{i}-th element of array"
+      begin
+        must_almost_equals(e, actual[i])
+      rescue ComparisonError => e
+        raise ComparisonError, "Different value of #{i}-th element of array"
+      end
     end
   when Hash
     # Note: It is OK when `actual` has additional entries.
@@ -36,15 +38,17 @@ def must_almost_equals(expected, actual)
     end
 
     expected.each do |k, v|
-      unless actual.include?(k)
-        raise ComparisonError, "Missing key `#{k}` in actual: #{actual}"
+      begin
+        unless actual.include?(k)
+          raise ComparisonError, "Missing key `#{k}` in actual: #{actual}"
+        end
+        must_almost_equals(v, actual[k])
+      rescue ComparisonError => e
+        if not e.cause.nil? and e.cause.message.match(/^Missing key `#{k}`/)
+          raise e
+        end
+        raise ComparisonError, "Different value for `#{k}`"
       end
-      must_almost_equals(v, actual[k])
-    rescue ComparisonError => e
-      if not e.cause.nil? and e.cause.message.match(/^Missing key `#{k}`/)
-        raise e
-      end
-      raise ComparisonError, "Different value for `#{k}`"
     end
   else
     unless expected == actual
