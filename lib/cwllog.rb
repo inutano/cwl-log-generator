@@ -3,7 +3,7 @@ require 'cwllog/env'
 require 'cwllog/docker'
 require 'cwllog/cwl'
 
-Version = "0.1.20"
+Version = "0.1.20.1"
 
 module CWLlog
   class << self
@@ -58,6 +58,7 @@ module CWLlog
           daemon: @@logs[:docker][:info]
         }
 
+        steps[step_name] = step_info
         steps[step_name][:docker] = docker_obj
         steps[step_name][:platform] = @@logs[:env]
       end
