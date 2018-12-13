@@ -3,7 +3,7 @@ require 'cwllog/env'
 require 'cwllog/docker'
 require 'cwllog/cwl'
 
-Version = "0.1.20.1"
+Version = "0.1.21"
 
 module CWLlog
   class << self
