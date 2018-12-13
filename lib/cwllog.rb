@@ -46,8 +46,8 @@ module CWLlog
         raise NameError if !cid
 
         ps = @@logs[:docker][:ps][cid]
-        docker_obj = {
-          container: {
+        container_obj = {
+          process: {
             id: cid,
             image: ps[:docker_image],
             cmd: ps[:docker_cmd],
@@ -56,11 +56,11 @@ module CWLlog
             end_time: ps[:docker_inspect][:end_time],
             exit_code: ps[:docker_inspect][:exit_code],
           },
-          daemon: @@logs[:docker][:info]
+          runtime: @@logs[:docker][:info]
         }
 
         steps[step_name] = step_info
-        steps[step_name][:docker] = docker_obj
+        steps[step_name][:container] = container_obj
         steps[step_name][:platform] = @@logs[:env]
       end
       steps
