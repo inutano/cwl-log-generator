@@ -3,7 +3,7 @@ require 'cwllog/env'
 require 'cwllog/docker'
 require 'cwllog/cwl'
 
-Version = "0.1.18"
+Version = "0.1.20"
 
 module CWLlog
   class << self
@@ -43,14 +43,22 @@ module CWLlog
       steps = {}
       @@logs[:cwl][:debug_info][:steps].each_pair do |step_name,step_info|
         cid = step_info[:container_id]
-        ps  = @@logs[:docker][:ps]
-        if cid && ps
-          dps = ps[cid]
-          steps[step_name] = step_info.merge(dps)
-        else
-          steps[step_name] = step_info
-        end
-        steps[step_name][:docker] = @@logs[:docker][:info]
+        raise NameError if !cid
+
+        ps = @@logs[:docker][:ps][cid]
+        docker_obj = {
+          container: {
+            image: ps[:docker_image],
+            cmd: ps[:docker_cmd],
+            status: ps[:docker_status],
+            start_time: ps[:docker_inspect][:start_time],
+            end_time: ps[:docker_inspect][:end_time],
+            exit_code: ps[:docker_inspect][:exit_code],
+          },
+          daemon: @@logs[:docker][:info]
+        }
+
+        steps[step_name][:docker] = docker_obj
         steps[step_name][:platform] = @@logs[:env]
       end
       steps
