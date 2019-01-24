@@ -47,15 +47,25 @@ module CWLlog
     def concat_steps_with_docker_ps
       steps = {}
       @@logs[:cwl][:debug_info][:steps].each_pair do |step_name,step_info|
-        cid = step_info[:container_id]
-        ps  = @@logs[:docker][:ps]
-        if cid && ps
-          dps = ps[cid]
-          steps[step_name] = step_info.merge(dps)
-        else
-          steps[step_name] = step_info
-        end
-        steps[step_name][:docker] = @@logs[:docker][:info]
+        cid = step_info.delete(:container_id)
+        raise NameError if !cid
+
+        ps = @@logs[:docker][:ps][cid]
+        container_obj = {
+          process: {
+            id: cid,
+            image: ps[:docker_image],
+            cmd: ps[:docker_cmd],
+            status: ps[:docker_status],
+            start_time: ps[:docker_inspect][:start_time],
+            end_time: ps[:docker_inspect][:end_time],
+            exit_code: ps[:docker_inspect][:exit_code],
+          },
+          runtime: @@logs[:docker][:info]
+        }
+
+        steps[step_name] = step_info
+        steps[step_name][:container] = container_obj
         steps[step_name][:platform] = @@logs[:env]
       end
       steps
