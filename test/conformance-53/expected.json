@@ -1,8 +1,8 @@
 {
   "cwl_metrics_version": "0.1.18",
   "metrics_generator": {
-    "name": "cwl-log-generator",
-    "version": "0.1.18"
+    "name": null,
+    "version": null
   },
   "workflow": {
     "start_date": null,
