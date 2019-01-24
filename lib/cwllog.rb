@@ -4,7 +4,7 @@ require 'cwllog/docker'
 require 'cwllog/cwl'
 
 FormatVersion = "0.1.18"
-GeneratorVersion = "0.1.18"
+GeneratorVersion = "0.1.22"
 
 module CWLlog
   class << self
