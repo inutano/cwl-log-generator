@@ -1,4 +1,9 @@
 {
+  "cwl_metrics_version": "0.1.18",
+  "metrics_generator": {
+    "name": null,
+    "version": null
+  },
   "workflow": {
     "start_date": null,
     "end_date": null,
