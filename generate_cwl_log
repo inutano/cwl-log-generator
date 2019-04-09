@@ -29,19 +29,14 @@ if __FILE__ == $0
   opts.each do |opt, arg|
     case opt
     when '--debug-output'
-      # CWLlog::CWL::DebugInfo.load(arg) # --debug output with timestamps
       config.debug_log = arg
     when '--job-conf'
-      # CWLlog::CWL::JobConf.load(arg) # job conf yaml or json
       config.job_conf = arg
     when '--cidfile-dir'
-      # CWLlog::CWL::DebugInfo.cidfile_dir(arg) # --debug output with timestamps
       config.cidfile_dir = arg
     when '--docker-ps'
-      # CWLlog::Docker.load_docker_ps(arg)
       config.ps_file = arg
     when '--docker-info'
-      # CWLlog::Docker.load_docker_info(arg)
       config.info_file = arg
     when '--output-dir'
       output_dir = arg
@@ -49,8 +44,7 @@ if __FILE__ == $0
   end
 
   begin
-    # cwl_log_json = CWLlog.generate
-    cwl_log_json = JSON.dump(generate(config).to_h)
+    cwl_log_json = JSON.dump(generate(config))
   rescue => e
     error_out_dir = output_dir || "."
     error_out_file = "#{output_dir}/cwl_log_generator.error.log"
