@@ -8,7 +8,7 @@ test: cwl_log.json
 	../compare_json.rb expected.json cwl_log.json && echo ok.
 
 cwl_log.json: cwltool.log
-	../../generate_cwl_log --docker-ps ${TMPDIR}/ps-file --docker-info ${TMPDIR}/info-file --debug-output cwltool.log --output-dir .
+	../../generate_cwl_log --docker-ps ${TMPDIR}/ps-file --docker-info ${TMPDIR}/info-file --debug-output cwltool.log --output-dir . --cidfile-dir ${TMPDIR}
 
 cwltool.log:
 	mkdir ${TMPDIR}

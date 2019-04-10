@@ -38,7 +38,6 @@
       "start_date": null,
       "end_date": null,
       "cwl_file": null,
-      "container_id": null,
       "tool_status": "success",
       "inputs": {
         "input": {
@@ -61,20 +60,23 @@
           "size": 1111
         }
       },
-      "docker_image": "debian:stretch-slim",
-      "docker_cmd": null,
-      "docker_status": null,
-      "docker_inspect": {
-        "start_time": null,
-        "end_time": null,
-        "exit_code": 0
-      },
-      "docker": {
-        "running_containers": null,
-        "server_version": null,
-        "storage_driver": null,
-        "number_of_cpu": null,
-        "total_memory": null
+      "container": {
+        "process": {
+          "id": null,
+          "image": "debian:stretch-slim",
+          "cmd": null,
+          "status": null,
+          "start_time": null,
+          "end_time": null,
+          "exit_code": 0
+        },
+        "runtime": {
+          "running_containers": null,
+          "server_version": null,
+          "storage_driver": null,
+          "number_of_cpu": null,
+          "total_memory": null
+        }
       },
       "platform": {
         "hostname": null,
@@ -88,7 +90,6 @@
       "start_date": null,
       "end_date": null,
       "cwl_file": null,
-      "container_id": null,
       "tool_status": "success",
       "inputs": {
         "input": {
@@ -113,20 +114,23 @@
           "size": 1111
         }
       },
-      "docker_image": "debian:stretch-slim",
-      "docker_cmd": null,
-      "docker_status": null,
-      "docker_inspect": {
-        "start_time": null,
-        "end_time": null,
-        "exit_code": 0
-      },
-      "docker": {
-        "running_containers": null,
-        "server_version": null,
-        "storage_driver": null,
-        "number_of_cpu": null,
-        "total_memory": null
+      "container": {
+        "process": {
+          "id": null,
+          "image": "debian:stretch-slim",
+          "cmd": null,
+          "status": null,
+          "start_time": null,
+          "end_time": null,
+          "exit_code": 0
+        },
+        "runtime": {
+          "running_containers": null,
+          "server_version": null,
+          "storage_driver": null,
+          "number_of_cpu": null,
+          "total_memory": null
+        }
       },
       "platform": {
         "hostname": null,
