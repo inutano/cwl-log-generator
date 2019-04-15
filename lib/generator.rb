@@ -11,11 +11,11 @@ def generate(config)
     lines.pop(2)
     events = lines.map{|l| CWLEvent.new(l) }
 
-    info = case events.first.tag.strip
+    info = case events.first.tag.split.first
            when 'workflow'
              WorkflowInfo.new(events, config)
            when 'job'
-             JobInfo.new(events, config)
+             JobInfo.new(nil, events, config)
            else
              raise "Invalid event tag: #{events.first.tag.strip}"
            end
