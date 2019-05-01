@@ -7,9 +7,7 @@ GeneratorVersion = "0.1.22"
 
 def generate(config)
     lines = open(config.debug_log).read.split(/\n\[/m)
-    lines.shift(2)
-    lines.pop(2)
-    events = lines.map{|l| CWLEvent.new(l) }
+    events = lines.map{|l| CWLEvent.new(l) }.compact
 
     info = case events.first.tag.strip
            when 'workflow'

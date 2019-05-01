@@ -7,6 +7,8 @@ class CWLEvent
     if line.match(/^(?:\[)?(.+?)\] (?:\[(.+?)\])? (.+)/m)
       date, @tag, @contents = $1, $2, $3.chomp
       @date = DateTime.parse date
+    elsif line.match(/^(?:\[)?(.+?)\] (.+)/m)
+      nil
     else
       raise "Invalid event: #{line}"
     end
