@@ -24,8 +24,7 @@ class JobInfo
   end
 
   def to_h
-    {
-      stepname: @stepname,
+    ret = {
       start_date: @start_date,
       end_date: @end_date,
       cwl_file: @cwl_file,
@@ -38,6 +37,8 @@ class JobInfo
       },
       platform: @platform,
     }
+    ret[:stepname] = @stepname if @stepname
+    ret
   end
 end
 
