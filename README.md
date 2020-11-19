@@ -24,7 +24,7 @@ Here is an example to analyze the execution result of `workflow.cwl` with `input
 $ mkdir result
 $ cwltool --debug --leave-container --timestamps --compute-checksum --record-container-id --cidfile-dir $PWD/result --outdir $PWD/result workflow.cwl inputs.yml 2> $PWD/result/cwltool.log
 ...
-$ docker ps -a --no-trunk > ps-file
+$ docker ps -a --no-trunc > ps-file
 $ docker info > info-file
 $ generate_cwl_log --cidfile-dir result --docker-ps ./ps-file --docker-info ./info-file --job-conf inputs.yml --debug-output result/cwltool.log --output-dir result
 $ cat result/cwl_log.json | jq .
