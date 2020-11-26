@@ -6,11 +6,14 @@ FormatVersion = "0.1.18"
 GeneratorVersion = "0.1.22"
 
 def generate(config)
-    lines = open(config.debug_log).read.split(/\n\[/m)
-    lines.shift(2)
-    lines.pop(2)
+    lines = open(config.debug_log).read.gsub(/\e\[([\d|;]+)m/, '').split(/\n\[/m)
     events = lines.map do |l|
-      CWLEvent.new(l)
+      e = CWLEvent.new(l)
+      if e.log_lv == ("DEBUG" || "INFO")
+        e
+      else
+        nil
+      end
     rescue
       nil
     end.compact

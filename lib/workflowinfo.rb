@@ -51,9 +51,9 @@ def get_step_chunks(events)
 end
 
 def get_input_object(events)
-  JSON.load(events.select{|e| e.contents =~ /\{\n/m }.first.contents)
+  JSON.load(events.select{|e| e.contents =~ /inputs \{/ }.first.contents.gsub('inputs ',''))
 end
 
 def get_output_object(events)
-  JSON.load(events.select{|e| e.contents =~ /\{\n/m }.last.contents)
+  JSON.load(events.select{|e| e.contents =~ /outputs \{/ }.last.contents.gsub('outputs ',''))
 end
