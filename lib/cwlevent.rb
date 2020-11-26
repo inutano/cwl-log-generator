@@ -1,11 +1,11 @@
 require 'date'
 
 class CWLEvent
-  attr_reader :date, :tag, :contents
+  attr_reader :date, :log_lv, :tag, :contents
 
   def initialize(line)
-    if line.match(/^(?:\[)?(.+?)\] (?:\[(.+?)\])? (.+)/m)
-      date, @tag, @contents = $1, $2, $3.chomp
+    if line.match(/^(?:\[)?(.+?)\] (.+?) (?:\[(.+?)\])? (.+)/m)
+      date, @log_lv, @tag, @contents = $1, $2, $3, $4.chomp
       @date = DateTime.parse date
     else
       raise "Invalid event: #{line}"
