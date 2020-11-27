@@ -15,5 +15,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: inutano/cwl-log-generator
+          repository: inutano/cwl-log-generator/cwl-log-generator
           tag_with_ref: true
