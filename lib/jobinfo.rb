@@ -16,8 +16,8 @@ class JobInfo
     @end_date = events.last.date
     @cwl_file = get_cwlfile_name(events)
     @tool_status = get_tool_status(events)
-    @inputs = get_input_object(events)
-    @outputs = get_output_object(events)
+    @inputs = get_job_input_object(events)
+    @outputs = get_job_output_object(events)
     @container_runtime = get_container_runtime(config)
     @container_process = get_container_process(events, config)
     @platform = get_platform
@@ -116,10 +116,10 @@ def get_tool_status(events)
   end
 end
 
-def get_input_object(events)
+def get_job_input_object(events)
   JSON.load(events.select{|e| e.contents =~ /\{\n/m }.first.contents)
 end
 
-def get_output_object(events)
-  JSON.load(events.select{|e| e.contents =~ /\{\n/m }.last.contents)
+def get_job_output_object(events)
+  JSON.load(events.select{|e| e.contents =~ /outputs \{/ }.last.contents.gsub('outputs ',''))
 end

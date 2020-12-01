@@ -9,11 +9,7 @@ def generate(config)
     lines = open(config.debug_log).read.gsub(/\e\[([\d|;]+)m/, '').split(/\n\[/m)
     events = lines.map do |l|
       e = CWLEvent.new(l)
-      if e.log_lv == ("DEBUG" || "INFO")
-        e
-      else
-        nil
-      end
+      e if (e.log_lv == "DEBUG" || e.log_lv == "INFO")
     rescue
       nil
     end.compact
